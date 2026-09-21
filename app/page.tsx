@@ -1,16 +1,18 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import TyphoonGlobe from './Globe';
+import dynamic from 'next/dynamic';
 import StormChart from './Chart';
+import DataWorkbench from './DataWorkbench';
 import { modelStorm, sourceLinks, storms, type Storm } from './data';
 
 type Tab = 'simulation'|'archive'|'analysis'|'physics';
 type Form = {name:string;lat:number;lon:number;sst:number;heat:number;shear:number;humidity:number;wind:number};
 const initialForm: Form = {name:'KAI',lat:14.2,lon:142.5,sst:30.2,heat:92,shear:9,humidity:78,wind:45};
+const TyphoonGlobe = dynamic(() => import('./Globe'), { ssr: false, loading: () => <div className="globe-loading"><i/><span>INITIALIZING WEBGL EARTH</span></div> });
 
 function Header({tab,setTab}:{tab:Tab;setTab:(t:Tab)=>void}){
-  const nav:[Tab,string][]=[['simulation','SIMULATION'],['archive','STORM ARCHIVE'],['analysis','DATA ANALYSIS'],['physics','PHYSICS LAB']];
+  const nav:[Tab,string][]=[['simulation','SIMULATION'],['archive','STORM ARCHIVE'],['analysis','DATA WORKSPACE'],['physics','PHYSICS LAB']];
   return <header className="topbar">
     <button className="brand" onClick={()=>setTab('simulation')}><span className="brand-mark">N</span><span>NARI LAB</span><small>TYPHOON INTELLIGENCE</small></button>
     <nav>{nav.map(([id,label])=><button key={id} className={tab===id?'nav-active':''} onClick={()=>setTab(id)}>{label}</button>)}</nav>
@@ -56,7 +58,7 @@ function Simulation({storm,setTab,onCreate}:{storm:Storm;setTab:(t:Tab)=>void;on
     <StormPanel storm={storm} onCreate={onCreate} onArchive={()=>setTab('archive')}/>
     <section className="globe-stage">
       <div className="layer-controls glass">{['3D','WIND','RAIN','SST'].map(x=><button key={x} className={layer===x?'active':''} onClick={()=>setLayer(x)}>{x}</button>)}</div>
-      <div className="drag-tip">DRAG TO ROTATE</div><TyphoonGlobe storm={storm} index={index} playing={playing} layer={layer}/>
+      <div className="drag-tip">DRAG · SCROLL TO ZOOM</div><div className="webgl-badge"><i/> WEBGL · ADAPTIVE</div><TyphoonGlobe storm={storm} index={index} playing={playing} layer={layer}/>
       <div className="map-label label-taiwan">TAIWAN</div><div className="map-label label-japan">JAPAN</div><div className="map-label label-ph">PHILIPPINES</div>
       <div className="storm-callout glass"><span>◉</span><div><b>VORTEX CORE</b><strong>{point.wind} kt</strong><small>{point.pressure} hPa</small></div></div>
       <div className="legend"><span>20</span><i/><i/><i/><i/><i/><span>170 kt</span></div>
@@ -103,5 +105,5 @@ function CreateModal({close,create}:{close:()=>void;create:(s:Storm)=>void}){
 export default function Home(){
   const [tab,setTab]=useState<Tab>('simulation'),[storm,setStorm]=useState<Storm>(storms[0]),[creating,setCreating]=useState(false);
   const select=(s:Storm)=>{setStorm(s);setTab('simulation')};
-  return <main className="app-shell"><Header tab={tab} setTab={setTab}/>{tab==='simulation'&&<Simulation storm={storm} setTab={setTab} onCreate={()=>setCreating(true)}/>} {tab==='archive'&&<Archive select={select}/>} {tab==='analysis'&&<Analysis storm={storm} setStorm={setStorm}/>} {tab==='physics'&&<Physics/>}{creating&&<CreateModal close={()=>setCreating(false)} create={s=>{setStorm(s);setCreating(false);setTab('simulation')}}/>}</main>;
+  return <main className="app-shell"><Header tab={tab} setTab={setTab}/>{tab==='simulation'&&<Simulation storm={storm} setTab={setTab} onCreate={()=>setCreating(true)}/>} {tab==='archive'&&<Archive select={select}/>} {tab==='analysis'&&<DataWorkbench initialStorm={storm}/>} {tab==='physics'&&<Physics/>}{creating&&<CreateModal close={()=>setCreating(false)} create={s=>{setStorm(s);setCreating(false);setTab('simulation')}}/>}</main>;
 }

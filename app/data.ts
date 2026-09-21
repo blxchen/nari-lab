@@ -42,31 +42,31 @@ export const storms: Storm[] = [
   {
     id: 'nari-2025', name: 'NARI', year: 2025, basin: 'WESTERN PACIFIC', category: 'CATEGORY 4',
     maxWind: 132, minPressure: 918, movement: 'NW · 14 kt', radius: 168,
-    landfall: 'MODEL SCENARIO · EAST OF TAIWAN', color: '#58d9ff',
+    landfall: 'MODEL SCENARIO · EAST OF TAIWAN', color: '#0085ca',
     track: makeTrack(13.8, 137.6, [55, 68, 84, 102, 121, 132, 128, 116, 101], [992, 982, 969, 951, 931, 918, 924, 940, 958], 1.05, -1.08),
   },
   {
     id: 'haiyan-2013', name: 'HAIYAN', year: 2013, basin: 'WESTERN PACIFIC', category: 'CATEGORY 5',
     maxWind: 170, minPressure: 895, movement: 'WNW · 21 kt', radius: 140,
-    landfall: 'GUIUAN, EASTERN SAMAR', color: '#ff8a56',
+    landfall: 'GUIUAN, EASTERN SAMAR', color: '#f26b3a',
     track: makeTrack(6.2, 148.5, [45, 65, 90, 120, 150, 170, 165, 145, 115], [1000, 985, 965, 940, 910, 895, 900, 925, 955], .72, -2.4),
   },
   {
     id: 'tip-1979', name: 'TIP', year: 1979, basin: 'WESTERN PACIFIC', category: 'CATEGORY 5',
     maxWind: 165, minPressure: 870, movement: 'NNE · 9 kt', radius: 600,
-    landfall: 'HONSHU, JAPAN', color: '#b488ff',
+    landfall: 'HONSHU, JAPAN', color: '#7183d7',
     track: makeTrack(7.3, 156.1, [35, 55, 80, 110, 140, 165, 150, 120, 85], [1005, 990, 970, 940, 900, 870, 900, 945, 975], 1.42, -.86),
   },
   {
     id: 'meranti-2016', name: 'MERANTI', year: 2016, basin: 'WESTERN PACIFIC', category: 'CATEGORY 5',
     maxWind: 170, minPressure: 890, movement: 'WNW · 17 kt', radius: 125,
-    landfall: 'ITBAYAT / XIAMEN', color: '#ffca5b',
+    landfall: 'ITBAYAT / XIAMEN', color: '#f2b544',
     track: makeTrack(12.7, 139.8, [40, 65, 95, 125, 155, 170, 155, 120, 75], [1002, 987, 962, 935, 905, 890, 910, 950, 982], .83, -1.82),
   },
   {
     id: 'mangkhut-2018', name: 'MANGKHUT', year: 2018, basin: 'WESTERN PACIFIC', category: 'CATEGORY 5',
     maxWind: 155, minPressure: 905, movement: 'W · 18 kt', radius: 220,
-    landfall: 'BAGGAO, CAGAYAN', color: '#6fe0a3',
+    landfall: 'BAGGAO, CAGAYAN', color: '#4fbf9f',
     track: makeTrack(12.2, 150.7, [50, 70, 95, 125, 145, 155, 145, 120, 90], [997, 983, 965, 938, 918, 905, 919, 945, 970], .42, -2.2),
   },
 ];
@@ -105,7 +105,7 @@ export function modelStorm(params: {
     maxWind,
     minPressure: Math.min(...track.map((p) => p.pressure)),
     movement: 'NW · 13 kt', radius: Math.round(70 + maxWind * .72),
-    landfall: 'USER-GENERATED SCENARIO', color: '#7ee7ff', track,
+    landfall: 'USER-GENERATED SCENARIO', color: '#0085ca', track,
   };
 }
 
