@@ -1,0 +1,10 @@
+{
+  "schema": "NARI LAB curated best-track sample v1",
+  "provenance": "Peak intensity values curated from NOAA IBTrACS v4r01; compact 12-hour tracks are illustrative resamples for this educational interface.",
+  "storms": [
+    {"name":"Haiyan","year":2013,"basin":"WP","max_wind_kt":170,"min_pressure_hpa":895,"landfall":"Guiuan, Eastern Samar"},
+    {"name":"Tip","year":1979,"basin":"WP","max_wind_kt":165,"min_pressure_hpa":870,"landfall":"Honshu, Japan"},
+    {"name":"Meranti","year":2016,"basin":"WP","max_wind_kt":170,"min_pressure_hpa":890,"landfall":"Itbayat / Xiamen"},
+    {"name":"Mangkhut","year":2018,"basin":"WP","max_wind_kt":155,"min_pressure_hpa":905,"landfall":"Baggao, Cagayan"}
+  ]
+}
